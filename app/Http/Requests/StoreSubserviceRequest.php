@@ -1,0 +1,51 @@
+<?php
+
+namespace App\Http\Requests;
+
+use App\Http\Traits\CustomeErrorResponse;
+use Illuminate\Foundation\Http\FormRequest;
+
+class StoreSubserviceRequest extends FormRequest
+{
+    use CustomeErrorResponse;
+
+    public function authorize()
+    {
+        return true;
+    }
+
+    public function rules()
+    {
+        return [
+            'service_id' => 'required|exists:services,id', // Ensures subservice is linked to a valid service
+            'title' => 'required|string|max:255',
+            'subtitle' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'card_description' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'card_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'service_id.required' => 'A valid service ID is required.',
+            'service_id.exists' => 'The specified service does not exist.',
+            'title.required' => 'The subservice title is required.',
+            'title.max' => 'The subservice title cannot exceed 255 characters.',
+
+            'subtitle.required' => 'The subservice subtitle is required.',
+            'subtitle.max' => 'The subservice subtitle cannot exceed 255 characters.',
+
+            'description.required' => 'The subservice description is required.',
+            'description.max' => 'The subservice description cannot exceed 255 characters.',
+
+            'card_description.required' => 'The subservice card_description is required.',
+            'card_description.max' => 'The subservice card_description cannot exceed 255 characters.',
+
+            'image.image' => 'The subservice image must be a valid image file.',
+            'card_image.image' => 'The subservice image must be a valid image file.',
+        ];
+    }
+}
