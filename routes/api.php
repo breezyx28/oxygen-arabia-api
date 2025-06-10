@@ -7,6 +7,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ContactPageController;
 use App\Http\Controllers\FooterController;
 use App\Http\Controllers\HeroController;
+use App\Http\Controllers\MainController;
 use App\Http\Controllers\MissionController;
 use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\ProfileController;
@@ -38,6 +39,7 @@ Route::group(['prefix' => 'v1'], function () {
 
 
     Route::middleware('auth:sanctum')->group(function () {
+        Route::apiResource('main', MainController::class);
         Route::apiResource('footer', FooterController::class);
         Route::apiResource('missions', MissionController::class)->except(['index']);
         Route::apiResource('projects', ProjectController::class)->except(['index']);
@@ -89,7 +91,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('subservices', [SubserviceController::class, 'index']);
 
     // ------------------- Last records -------------------------------
-    Route::get('last-hero', [HeroController::class, "last"]);
+    Route::get('last-main', [MainController::class, "last"]);
     Route::get('last-footer', [FooterController::class, "last"]);
     Route::get('last-partner', [PartnerController::class, "last"]);
     Route::get('last-mission', [MissionController::class, "last"]);
