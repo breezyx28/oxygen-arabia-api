@@ -39,7 +39,7 @@ Route::group(['prefix' => 'v1'], function () {
 
 
     Route::middleware('auth:sanctum')->group(function () {
-        Route::apiResource('main', MainController::class);
+        Route::apiResource('mains', MainController::class);
         Route::apiResource('footer', FooterController::class);
         Route::apiResource('missions', MissionController::class)->except(['index']);
         Route::apiResource('projects', ProjectController::class)->except(['index']);
