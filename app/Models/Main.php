@@ -12,6 +12,18 @@ class Main extends Model
 
     protected $table = 'main';
 
+    protected $casts = [
+        'hero_slider_imgs' => 'array',
+        'section_2_icons' => 'array',
+        'section_6_slider' => 'array',
+        'hero_card_1' => 'array',
+        'hero_card_2' => 'array',
+        'section_3_card_1_features' => 'array',
+        'section_3_card_2_features' => 'array',
+        'section_3_card_3_features' => 'array',
+        'section_5_card_card' => 'array',
+    ];
+
     protected function getImageUrl($attribute)
     {
         $value = $this->attributes[$attribute];

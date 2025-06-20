@@ -34,9 +34,37 @@ class StoreService
                 $model->$key = Hash::make($value);
             }
             if (!empty($request->allFiles())) {
-                foreach ($request->allFiles() as $index => $file) {
-                    $file_dir = $request->file($index)->storeAs(ucfirst($model->getTable()), $file->getClientOriginalName(), 'public');
-                    $model->$index = $file_dir;
+                foreach ($request->allFiles() as $index => $files) {
+                    if (is_array($files)) {
+                        $filePaths = [];
+                        foreach ($files as $file) {
+                            if (is_array($file)) {
+                                foreach ($file as $innerFile) {
+                                    $file_dir = $innerFile->storeAs(
+                                        ucfirst($model->getTable()),
+                                        $innerFile->getClientOriginalName(),
+                                        'public'
+                                    );
+                                    $filePaths[] = $file_dir;
+                                }
+                            } else {
+                                $file_dir = $file->storeAs(
+                                    ucfirst($model->getTable()),
+                                    $file->getClientOriginalName(),
+                                    'public'
+                                );
+                                $filePaths[] = $file_dir;
+                            }
+                        }
+                        $model->$index = $filePaths;
+                    } else {
+                        $file_dir = $files->storeAs(
+                            ucfirst($model->getTable()),
+                            $files->getClientOriginalName(),
+                            'public'
+                        );
+                        $model->$index = $file_dir;
+                    }
                 }
             }
         }
