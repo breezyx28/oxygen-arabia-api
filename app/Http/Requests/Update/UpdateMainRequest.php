@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Update;
 
+use App\Http\Requests\MainRequest;
 use App\Http\Traits\CustomeErrorResponse;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -14,28 +15,28 @@ class UpdateMainRequest extends FormRequest
         return true;
     }
 
-    public function prepareForValidation(): void
-    {
-        foreach (
-            [
-                'hero_card_1',
-                'hero_card_2',
-                'hero_slider_imgs',
-                'section_2_icons',
-                'section_3_card_1_features',
-                'section_3_card_2_features',
-                'section_3_card_3_features',
-                'section_5_card_card',
-                'section_6_slider',
-            ] as $jsonField
-        ) {
-            if ($this->has($jsonField)) {
-                $this->merge([
-                    $jsonField => json_decode($this->input($jsonField), true),
-                ]);
-            }
-        }
-    }
+    // public function prepareForValidation(): void
+    // {
+    //     foreach (
+    //         [
+    //             'hero_card_1',
+    //             'hero_card_2',
+    //             'hero_slider_imgs',
+    //             'section_2_icons',
+    //             'section_3_card_1_features',
+    //             'section_3_card_2_features',
+    //             'section_3_card_3_features',
+    //             'section_5_card_card',
+    //             'section_6_slider',
+    //         ] as $jsonField
+    //     ) {
+    //         if ($this->has($jsonField)) {
+    //             $this->merge([
+    //                 $jsonField => json_decode($this->input($jsonField), true),
+    //             ]);
+    //         }
+    //     }
+    // }
 
     public function rules(): array
     {
@@ -87,7 +88,7 @@ class UpdateMainRequest extends FormRequest
             'section_6_title' => ['sometimes', 'string', 'max:255'],
 
             // JSON Arrays
-            'hero_card_1' => ['sometimes', 'array'],
+            'hero_card_1' => ['sometimes', 'nullable', 'array'],
             'hero_card_1.*.title' => ['sometimes', 'string'],
             'hero_card_1.*.subtitle' => ['sometimes', 'string'],
 
@@ -95,10 +96,10 @@ class UpdateMainRequest extends FormRequest
             'hero_card_2.*.title' => ['sometimes', 'string'],
             'hero_card_2.*.subtitle' => ['sometimes', 'string'],
 
-            'hero_slider_imgs' => ['sometimes', 'array'],
+            'hero_slider_imgs' => ['sometimes', 'nullable', 'array'],
             'hero_slider_imgs.*' => ['sometimes', 'string'],
 
-            'section_2_icons' => ['sometimes', 'array'],
+            'section_2_icons' => ['sometimes', 'nullable', 'array'],
             'section_2_icons.*' => ['sometimes', 'string'],
 
             'section_3_card_1_features' => ['sometimes', 'array'],
@@ -116,7 +117,8 @@ class UpdateMainRequest extends FormRequest
 
             'section_6_slider' => ['sometimes', 'array'],
             'section_6_slider.*.type' => ['sometimes', 'in:img,text'],
-            'section_6_slider.*.icon' => ['nullable', 'string'],
+            'section_6_slider.*.icon' => ['nullable'],
+            // 'section_6_slider.*.icon' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
             'section_6_slider.*.text_1_title' => ['nullable', 'string'],
             'section_6_slider.*.text_1_subtitle' => ['nullable', 'string'],
             'section_6_slider.*.text_2_title' => ['nullable', 'string'],

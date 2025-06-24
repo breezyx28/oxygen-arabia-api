@@ -39,7 +39,7 @@ Route::group(['prefix' => 'v1'], function () {
 
 
     Route::middleware('auth:sanctum')->group(function () {
-        Route::apiResource('mains', MainController::class);
+        // Route::apiResource('mains', MainController::class);
         Route::apiResource('footer', FooterController::class);
         Route::apiResource('missions', MissionController::class)->except(['index']);
         Route::apiResource('projects', ProjectController::class)->except(['index']);
@@ -51,6 +51,11 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('/user', [ProfileController::class, 'current_user']);
 
         // Partnes
+        Route::get('mains/{main}', [MainController::class, 'show']);
+        Route::post('mains', [MainController::class, 'store']);
+        Route::post('mains/{main}', [MainController::class, 'update']);
+        Route::delete('mains/{main}', [MainController::class, 'destroy']);
+
         Route::get('partners/{partner}', [PartnerController::class, 'show']);
         Route::post('partners/{partner}', [PartnerController::class, 'store']);
         Route::post('partners/{partner}', [PartnerController::class, 'update']);

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\MainRequest;
-use App\Http\Requests\UpdateMainRequest;
+use App\Http\Requests\Update\UpdateMainRequest;
 use App\Http\Services\MainService;
 use App\Models\Main;
 use Illuminate\Http\Request;
