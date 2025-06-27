@@ -15,28 +15,29 @@ class UpdateMainRequest extends FormRequest
         return true;
     }
 
-    // public function prepareForValidation(): void
-    // {
-    //     foreach (
-    //         [
-    //             'hero_card_1',
-    //             'hero_card_2',
-    //             'hero_slider_imgs',
-    //             'section_2_icons',
-    //             'section_3_card_1_features',
-    //             'section_3_card_2_features',
-    //             'section_3_card_3_features',
-    //             'section_5_card_card',
-    //             'section_6_slider',
-    //         ] as $jsonField
-    //     ) {
-    //         if ($this->has($jsonField)) {
-    //             $this->merge([
-    //                 $jsonField => json_decode($this->input($jsonField), true),
-    //             ]);
-    //         }
-    //     }
-    // }
+    public function prepareForValidation(): void
+    {
+
+
+        // ✅ Cast booleans from string to actual boolean
+        foreach (
+            [
+                'section_1_active',
+                'section_2_active',
+                'section_3_active',
+                'section_4_active',
+                'section_5_active',
+                'section_6_active',
+            ] as $boolField
+        ) {
+            if ($this->has($boolField)) {
+                $value = $this->input($boolField);
+                $this->merge([
+                    $boolField => filter_var($value, FILTER_VALIDATE_BOOLEAN),
+                ]);
+            }
+        }
+    }
 
     public function rules(): array
     {
@@ -56,6 +57,7 @@ class UpdateMainRequest extends FormRequest
             'hero_cta_link' => ['sometimes', 'string', 'max:255', 'url'],
             'hero_slider_title' => ['sometimes', 'string', 'max:255'],
 
+            'section_1_active' => ['sometimes', 'boolean'],
             'section_1_title' => ['sometimes', 'string', 'max:255'],
             'section_1_subtitle' => ['sometimes', 'string', 'max:500'],
             'section_1_card_1_title' => ['sometimes', 'string', 'max:255'],
@@ -68,9 +70,11 @@ class UpdateMainRequest extends FormRequest
             'section_1_card_3_subtitle' => ['sometimes', 'string', 'max:500'],
             'section_1_card_3_cta' => ['sometimes', 'string', 'max:255', 'url'],
 
+            'section_2_active' => ['sometimes', 'boolean'],
             'section_2_title' => ['sometimes', 'string', 'max:255'],
             'section_2_subtitle' => ['sometimes', 'string', 'max:500'],
 
+            'section_3_active' => ['sometimes', 'boolean'],
             'section_3_title' => ['sometimes', 'string', 'max:255'],
             'section_3_card_1_title' => ['sometimes', 'string', 'max:255'],
             'section_3_card_1_cta' => ['sometimes', 'string', 'max:255', 'url'],
@@ -79,12 +83,15 @@ class UpdateMainRequest extends FormRequest
             'section_3_card_3_title' => ['sometimes', 'string', 'max:255'],
             'section_3_card_3_cta' => ['sometimes', 'string', 'max:255', 'url'],
 
+            'section_4_active' => ['sometimes', 'boolean'],
             'section_4_title' => ['sometimes', 'string', 'max:255'],
             'section_4_cta_title' => ['sometimes', 'string', 'max:100'],
             'section_4_cta_link' => ['sometimes', 'string', 'max:255', 'url'],
 
+            'section_5_active' => ['sometimes', 'boolean'],
             'section_5_title' => ['sometimes', 'string', 'max:255'],
 
+            'section_6_active' => ['sometimes', 'boolean'],
             'section_6_title' => ['sometimes', 'string', 'max:255'],
 
             // JSON Arrays

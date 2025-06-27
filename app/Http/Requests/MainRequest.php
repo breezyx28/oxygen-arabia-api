@@ -14,29 +14,28 @@ class MainRequest extends FormRequest
         return true;
     }
 
-    // public function prepareForValidation(): void
-    // {
-    //     foreach (
-    //         [
-    //             'hero_card_1',
-    //             'hero_card_2',
-    //             'hero_slider_imgs',
-    //             'hero_slider_icons',
-    //             'section_2_icons',
-    //             'section_3_card_1_features',
-    //             'section_3_card_2_features',
-    //             'section_3_card_3_features',
-    //             'section_5_card_card',
-    //             'section_6_slider',
-    //         ] as $jsonField
-    //     ) {
-    //         if ($this->has($jsonField)) {
-    //             $this->merge([
-    //                 $jsonField => json_decode($this->input($jsonField), true),
-    //             ]);
-    //         }
-    //     }
-    // }
+
+    public function prepareForValidation(): void
+    {
+        // ✅ Cast booleans from string to actual boolean
+        foreach (
+            [
+                'section_1_active',
+                'section_2_active',
+                'section_3_active',
+                'section_4_active',
+                'section_5_active',
+                'section_6_active',
+            ] as $boolField
+        ) {
+            if ($this->has($boolField)) {
+                $value = $this->input($boolField);
+                $this->merge([
+                    $boolField => filter_var($value, FILTER_VALIDATE_BOOLEAN),
+                ]);
+            }
+        }
+    }
 
     public function rules(): array
     {
@@ -60,6 +59,7 @@ class MainRequest extends FormRequest
             'hero_card_2.*.title' => ['required', 'string'],
             'hero_card_2.*.subtitle' => ['required', 'string'],
 
+            'section_1_active' => ['nullable', 'boolean'],
             'section_1_title' => ['required', 'string', 'max:255'],
             'section_1_subtitle' => ['required', 'string', 'max:500'],
             'section_1_card_1_title' => ['required', 'string', 'max:255'],
@@ -72,11 +72,13 @@ class MainRequest extends FormRequest
             'section_1_card_3_subtitle' => ['required', 'string', 'max:500'],
             'section_1_card_3_cta' => ['required', 'string', 'max:255', 'url'],
 
+            'section_2_active' => ['nullable', 'boolean'],
             'section_2_title' => ['required', 'string', 'max:255'],
             'section_2_subtitle' => ['required', 'string', 'max:500'],
             'section_2_icons' => ['required', 'array'],
             'section_2_icons.*' => ['required', 'image', 'mimes:jpeg,png,jpg,webp', 'max:2048'],
 
+            'section_3_active' => ['nullable', 'boolean'],
             'section_3_title' => ['required', 'string', 'max:255'],
             'section_3_card_1_icon' => ['required', 'image', 'mimes:jpeg,png,jpg,webp', 'max:2048'],
             'section_3_card_1_title' => ['required', 'string', 'max:255'],
@@ -94,17 +96,20 @@ class MainRequest extends FormRequest
             'section_3_card_3_features.*' => ['required', 'string'],
             'section_3_card_3_cta' => ['required', 'string', 'max:255', 'url'],
 
+            'section_4_active' => ['nullable', 'boolean'],
             'section_4_cover' => ['required', 'image', 'mimes:jpeg,png,jpg,webp', 'max:2048'],
             'section_4_title' => ['required', 'string', 'max:255'],
             'section_4_cta_title' => ['required', 'string', 'max:100'],
             'section_4_cta_link' => ['required', 'string', 'max:255', 'url'],
 
+            'section_5_active' => ['nullable', 'boolean'],
             'section_5_title' => ['required', 'string', 'max:255'],
             'section_5_card_img' => ['required', 'image', 'mimes:jpeg,png,jpg,webp', 'max:2048'],
             'section_5_card_card' => ['required', 'array'],
             'section_5_card_card.*.title' => ['required', 'string'],
             'section_5_card_card.*.subtitle' => ['required', 'string'],
 
+            'section_6_active' => ['nullable', 'boolean'],
             'section_6_title' => ['required', 'string', 'max:255'],
             'section_6_slider' => ['required', 'array'],
             'section_6_slider.*.type' => ['required', 'in:img,text'],

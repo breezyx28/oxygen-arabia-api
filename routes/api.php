@@ -6,6 +6,7 @@ use App\Http\Controllers\ChangeUserInfoController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ContactPageController;
 use App\Http\Controllers\FooterController;
+use App\Http\Controllers\FormController;
 use App\Http\Controllers\HeroController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\MissionController;
@@ -40,72 +41,43 @@ Route::group(['prefix' => 'v1'], function () {
 
     Route::middleware('auth:sanctum')->group(function () {
         // Route::apiResource('mains', MainController::class);
-        Route::apiResource('footer', FooterController::class);
-        Route::apiResource('missions', MissionController::class)->except(['index']);
-        Route::apiResource('projects', ProjectController::class)->except(['index']);
-        Route::apiResource('services', ServiceController::class)->except(['index']);
-        Route::apiResource('subservices', SubserviceController::class);
-        Route::apiResource('contacts', ContactController::class);
+        // Route::apiResource('footer', FooterController::class);
+        // Route::apiResource('services', ServiceController::class)->except(['index']);
+        // Route::apiResource('subservices', SubserviceController::class);
+        // Route::apiResource('contacts', ContactController::class);
 
         Route::get('statistics', [StatisticsController::class, 'getStatistics']);
         Route::get('/user', [ProfileController::class, 'current_user']);
 
-        // Partnes
+        // Main Page (Landing page)
         Route::get('mains/{main}', [MainController::class, 'show']);
         Route::post('mains', [MainController::class, 'store']);
         Route::post('mains/{main}', [MainController::class, 'update']);
         Route::delete('mains/{main}', [MainController::class, 'destroy']);
 
-        Route::get('partners/{partner}', [PartnerController::class, 'show']);
-        Route::post('partners/{partner}', [PartnerController::class, 'store']);
-        Route::post('partners/{partner}', [PartnerController::class, 'update']);
-        Route::delete('partners/{partner}', [PartnerController::class, 'destroy']);
-
-        // About page
-        Route::get('about-page', [AboutPageController::class, 'index']);
-        Route::get('about-page/{aboutPageDetail}', [AboutPageController::class, 'show']);
-        Route::post('about-page/{aboutPageDetail}', [AboutPageController::class, 'store']);
-        Route::post('about-page/{aboutPageDetail}', [AboutPageController::class, 'update']);
-        Route::delete('about-page/{aboutPageDetail}', [AboutPageController::class, 'destroy']);
-
-        // Heroes
-        Route::get('heroes', [HeroController::class, 'index']);
-        Route::get('heroes/{hero}', [HeroController::class, 'show']);
-        Route::post('heroes/{hero}', [HeroController::class, 'store']);
-        Route::post('heroes/{hero}', [HeroController::class, 'update']);
-        Route::delete('heroes/{hero}', [HeroController::class, 'destroy']);
+        // Form
+        Route::get('forms/{form}', [FormController::class, 'show']);
+        Route::post('forms', [FormController::class, 'store']);
+        Route::post('forms/{form}', [FormController::class, 'update']);
+        Route::delete('forms/{form}', [FormController::class, 'destroy']);
 
         // Subservice
-        Route::get('subservices/{subservice}', [SubserviceController::class, 'show']);
-        Route::post('subservices/{subservice}', [SubserviceController::class, 'store']);
-        Route::post('subservices/{subservice}', [SubserviceController::class, 'update']);
-        Route::delete('subservices/{subservice}', [SubserviceController::class, 'destroy']);
+        // Route::get('subservices/{subservice}', [SubserviceController::class, 'show']);
+        // Route::post('subservices/{subservice}', [SubserviceController::class, 'store']);
+        // Route::post('subservices/{subservice}', [SubserviceController::class, 'update']);
+        // Route::delete('subservices/{subservice}', [SubserviceController::class, 'destroy']);
 
-        Route::apiResource('contact-page', ContactPageController::class);
-        Route::apiResource('project-page', ProjectPageDetailsController::class);
+        // Route::apiResource('contact-page', ContactPageController::class);
+        // Route::apiResource('project-page', ProjectPageDetailsController::class);
     });
 
     // users messages
-    Route::apiResource('users-messages', UsersMessagesController::class);
+    // Route::apiResource('users-messages', UsersMessagesController::class);
 
     // ------------------- All queries -------------------------------
-    Route::get('missions', [MissionController::class, 'index']);
-    Route::get('partners', [PartnerController::class, 'index']);
-    Route::get('projects', [ProjectController::class, 'index']);
-    Route::get('services', [ServiceController::class, 'index']);
-    Route::get('subservices', [SubserviceController::class, 'index']);
+    // Route::get('missions', [MissionController::class, 'index']);
 
     // ------------------- Last records -------------------------------
     Route::get('last-main', [MainController::class, "last"]);
-    Route::get('last-footer', [FooterController::class, "last"]);
-    Route::get('last-partner', [PartnerController::class, "last"]);
-    Route::get('last-mission', [MissionController::class, "last"]);
-    Route::get('last-project', [ProjectController::class, "last"]);
-    Route::get('last-service', [ServiceController::class, "last"]);
-    Route::get('last-subservice', [SubserviceController::class, "last"]);
-    Route::get('last-contact', [ContactController::class, "last"]);
-    Route::get('last-about-page', [AboutPageController::class, "last"]);
-    Route::get('last-contact-page', [ContactPageController::class, "last"]);
-    Route::get('last-project-page', [ProjectPageDetailsController::class, "last"]);
-    Route::get('last-users-message', [UsersMessagesController::class, "last"]);
+    Route::get('last-form', [FormController::class, "last"]);
 });
