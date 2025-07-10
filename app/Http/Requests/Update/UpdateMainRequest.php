@@ -133,12 +133,12 @@ class UpdateMainRequest extends FormRequest
             'section_6_slider.*.cta_link' => ['nullable', 'url'],
 
             // Images – make them optional
-            'hero_cover' => ['sometimes', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
-            'section_3_card_1_icon' => ['sometimes', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
-            'section_3_card_2_icon' => ['sometimes', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
-            'section_3_card_3_icon' => ['sometimes', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
-            'section_4_cover' => ['sometimes', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
-            'section_5_card_img' => ['sometimes', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+            'hero_cover' => ['sometimes', 'image', 'mimes:jpeg,png,jpg,gif,webp', 'max:2048'],
+            'section_3_card_1_icon' => ['sometimes', 'image', 'mimes:jpeg,png,jpg,gif,webp', 'max:2048'],
+            'section_3_card_2_icon' => ['sometimes', 'image', 'mimes:jpeg,png,jpg,gif,webp', 'max:2048'],
+            'section_3_card_3_icon' => ['sometimes', 'image', 'mimes:jpeg,png,jpg,gif,webp', 'max:2048'],
+            'section_4_cover' => ['sometimes', 'image', 'mimes:jpeg,png,jpg,gif,webp', 'max:2048'],
+            'section_5_card_img' => ['sometimes', 'image', 'mimes:jpeg,png,jpg,gif,webp', 'max:2048'],
 
         ];
     }
