@@ -26,6 +26,9 @@ class UpdateMainRequest extends FormRequest
                 'section_4_active',
                 'section_5_active',
                 'section_6_active',
+                // 'hero_card_1_active',
+                // 'hero_card_2_active',
+                // 'hero_slider_active',
             ] as $boolField
         ) {
             if ($this->has($boolField)) {
@@ -40,13 +43,6 @@ class UpdateMainRequest extends FormRequest
     public function rules(): array
     {
         return [
-            // Images – make them optional
-            'hero_cover' => ['sometimes', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
-            'section_3_card_1_icon' => ['sometimes', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
-            'section_3_card_2_icon' => ['sometimes', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
-            'section_3_card_3_icon' => ['sometimes', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
-            'section_4_cover' => ['sometimes', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
-            'section_5_card_img' => ['sometimes', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
 
             // Strings – optional, so we use sometimes
             'hero_title' => ['sometimes', 'string', 'max:255'],
@@ -54,6 +50,22 @@ class UpdateMainRequest extends FormRequest
             'hero_cta_title' => ['sometimes', 'string', 'max:100'],
             'hero_cta_link' => ['sometimes', 'string', 'max:255', 'url'],
             'hero_slider_title' => ['sometimes', 'string', 'max:255'],
+
+            // JSON Arrays
+            // 'hero_card_1_active' => ['sometimes', 'boolean'],
+            'hero_card_1' => ['sometimes', 'nullable', 'array'],
+            'hero_card_1.*.title' => ['sometimes', 'string'],
+            'hero_card_1.*.subtitle' => ['sometimes', 'string'],
+
+            // 'hero_card_2_active' => ['sometimes', 'boolean'],
+            'hero_card_2' => ['sometimes', 'array'],
+            'hero_card_2.*.title' => ['sometimes', 'string'],
+            'hero_card_2.*.subtitle' => ['sometimes', 'string'],
+
+            // 'hero_slider_active' => ['sometimes', 'boolean'],
+            'hero_slider_imgs' => ['sometimes', 'nullable', 'array'],
+            'hero_slider_imgs.*' => ['sometimes', 'string'],
+
 
             'section_1_active' => ['sometimes', 'boolean'],
             'section_1_title' => ['sometimes', 'string', 'max:255'],
@@ -92,17 +104,6 @@ class UpdateMainRequest extends FormRequest
             'section_6_active' => ['sometimes', 'boolean'],
             'section_6_title' => ['sometimes', 'string', 'max:255'],
 
-            // JSON Arrays
-            'hero_card_1' => ['sometimes', 'nullable', 'array'],
-            'hero_card_1.*.title' => ['sometimes', 'string'],
-            'hero_card_1.*.subtitle' => ['sometimes', 'string'],
-
-            'hero_card_2' => ['sometimes', 'array'],
-            'hero_card_2.*.title' => ['sometimes', 'string'],
-            'hero_card_2.*.subtitle' => ['sometimes', 'string'],
-
-            'hero_slider_imgs' => ['sometimes', 'nullable', 'array'],
-            'hero_slider_imgs.*' => ['sometimes', 'string'],
 
             'section_2_icons' => ['sometimes', 'nullable', 'array'],
             'section_2_icons.*' => ['sometimes', 'string'],
@@ -130,6 +131,15 @@ class UpdateMainRequest extends FormRequest
             'section_6_slider.*.text_2_subtitle' => ['nullable', 'string'],
             'section_6_slider.*.cta_title' => ['nullable', 'string'],
             'section_6_slider.*.cta_link' => ['nullable', 'url'],
+
+            // Images – make them optional
+            'hero_cover' => ['sometimes', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+            'section_3_card_1_icon' => ['sometimes', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+            'section_3_card_2_icon' => ['sometimes', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+            'section_3_card_3_icon' => ['sometimes', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+            'section_4_cover' => ['sometimes', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+            'section_5_card_img' => ['sometimes', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+
         ];
     }
 

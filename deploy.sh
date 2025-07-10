@@ -4,26 +4,29 @@
 REMOTE_USER="oxygenarabia"
 REMOTE_HOST="oxygenarabia.com"
 REMOTE_PATH="public_html/oxygenarabia-api"
-SSH_PORT=22  # Change if your cPanel uses a custom SSH port
-PASSWORD="MSActs@1981"  # ⚠️ Don't use this in production!
+SSH_PORT=22
+PASSWORD="MSActs@1981"
+PLINK_PATH="/c/Program Files/PuTTY/plink.exe"  # Adjust path if needed
 # =============================
-sshpass -p "$PASSWORD" ssh -o StrictHostKeyChecking=no -p $SSH_PORT ${REMOTE_USER}@${REMOTE_HOST} << EOF
-    echo "📂 Switching to project directory: $REMOTE_PATH"
-    cd $REMOTE_PATH
 
-    echo "📥 Pulling latest code from Git (master branch)"
-    git pull origin master
+# Create a temporary command file
+COMMANDS_FILE=$(mktemp)
 
-    echo "🔄 Replacing .env with .env.production"
-    cp .env.production .env
-
-    echo "⚙️ Running Laravel post-deploy commands"
-    php artisan config:clear
-    php artisan cache:clear
-    php artisan config:cache
-    php artisan route:cache
-    php artisan view:cache
-    php artisan migrate --force
-
-    echo "✅ Deployment complete!"
+# Add the remote commands
+cat <<EOF > "$COMMANDS_FILE"
+cd $REMOTE_PATH
+git pull origin master
+cp .env.production .env
+php artisan config:clear
+php artisan cache:clear
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+php artisan migrate --force
 EOF
+
+# Run the commands using plink with password authentication
+"$PLINK_PATH" -ssh -P $SSH_PORT -pw "$PASSWORD" ${REMOTE_USER}@${REMOTE_HOST} < "$COMMANDS_FILE"
+
+# Clean up
+rm "$COMMANDS_FILE"

@@ -26,6 +26,9 @@ class MainRequest extends FormRequest
                 'section_4_active',
                 'section_5_active',
                 'section_6_active',
+                // 'hero_card_1_active',
+                // 'hero_card_2_active',
+                // 'hero_slider_active',
             ] as $boolField
         ) {
             if ($this->has($boolField)) {
@@ -47,14 +50,17 @@ class MainRequest extends FormRequest
             'hero_cta_title' => ['required', 'string', 'max:100'],
             'hero_cta_link' => ['required', 'string', 'max:255', 'url'],
             // JSON decoded arrays
+            // 'hero_card_1_active' => ['nullable', 'boolean'],
             'hero_card_1' => ['required', 'array'],
             'hero_card_1.*.title' => ['required', 'string'],
             'hero_card_1.*.subtitle' => ['required', 'string'],
             // hero slider
+            // 'hero_slider_active' => ['nullable', 'boolean'],
             'hero_slider_title' => ['required', 'string', 'max:255'],
             'hero_slider_imgs' => ['required', 'array'],
             'hero_slider_imgs.*' => ['required', 'image', 'mimes:jpeg,png,jpg,webp', 'max:2048'],
             // hero card
+            // 'hero_card_2_active' => ['nullable', 'boolean'],
             'hero_card_2' => ['required', 'array'],
             'hero_card_2.*.title' => ['required', 'string'],
             'hero_card_2.*.subtitle' => ['required', 'string'],
