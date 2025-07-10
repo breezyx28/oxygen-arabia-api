@@ -11,8 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('settings', function (Blueprint $table) {
+        Schema::create('footer_sections', function (Blueprint $table) {
             $table->id();
+            $table->string('title');                // Section title (e.g., "Company")
+            $table->integer('order')->default(0);   // Section order
             $table->timestamps();
         });
     }
@@ -22,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('settings');
+        Schema::dropIfExists('footer_sections');
     }
 };

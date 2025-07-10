@@ -17,8 +17,6 @@ class UpdateMainRequest extends FormRequest
 
     public function prepareForValidation(): void
     {
-
-
         // ✅ Cast booleans from string to actual boolean
         foreach (
             [

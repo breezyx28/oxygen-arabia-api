@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AboutPageController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BannersController;
 use App\Http\Controllers\ChangeUserInfoController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ContactPageController;
@@ -40,7 +41,7 @@ Route::group(['prefix' => 'v1'], function () {
 
 
     Route::middleware('auth:sanctum')->group(function () {
-        // Route::apiResource('mains', MainController::class);
+        Route::apiResource('banners', BannersController::class);
         // Route::apiResource('footer', FooterController::class);
         // Route::apiResource('services', ServiceController::class)->except(['index']);
         // Route::apiResource('subservices', SubserviceController::class);
@@ -80,4 +81,5 @@ Route::group(['prefix' => 'v1'], function () {
     // ------------------- Last records -------------------------------
     Route::get('last-main', [MainController::class, "last"]);
     Route::get('last-form', [FormController::class, "last"]);
+    Route::get('last-banner', [BannersController::class, "last"]);
 });
