@@ -26,9 +26,9 @@ class UpdateMainRequest extends FormRequest
                 'section_4_active',
                 'section_5_active',
                 'section_6_active',
-                // 'hero_card_1_active',
-                // 'hero_card_2_active',
-                // 'hero_slider_active',
+                'hero_card_1_active',
+                'hero_card_2_active',
+                'hero_slider_active',
             ] as $boolField
         ) {
             if ($this->has($boolField)) {
@@ -52,17 +52,17 @@ class UpdateMainRequest extends FormRequest
             'hero_slider_title' => ['sometimes', 'string', 'max:255'],
 
             // JSON Arrays
-            // 'hero_card_1_active' => ['sometimes', 'boolean'],
+            'hero_card_1_active' => ['sometimes', 'boolean'],
             'hero_card_1' => ['sometimes', 'nullable', 'array'],
             'hero_card_1.*.title' => ['sometimes', 'string'],
             'hero_card_1.*.subtitle' => ['sometimes', 'string'],
 
-            // 'hero_card_2_active' => ['sometimes', 'boolean'],
+            'hero_card_2_active' => ['sometimes', 'boolean'],
             'hero_card_2' => ['sometimes', 'array'],
             'hero_card_2.*.title' => ['sometimes', 'string'],
             'hero_card_2.*.subtitle' => ['sometimes', 'string'],
 
-            // 'hero_slider_active' => ['sometimes', 'boolean'],
+            'hero_slider_active' => ['sometimes', 'boolean'],
             'hero_slider_imgs' => ['sometimes', 'nullable', 'array'],
             'hero_slider_imgs.*' => ['sometimes', 'string'],
 
